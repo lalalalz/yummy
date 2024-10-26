@@ -1,9 +1,9 @@
 package com.lalalalz.application.port.member;
 
-import com.lalalalz.application.port.member.in.ChangePasswordRequest;
-import com.lalalalz.application.port.member.in.ChangePasswordResponse;
-import com.lalalalz.application.port.member.in.CreateMemberRequest;
-import com.lalalalz.application.port.member.in.CreateMemberResponse;
+import com.lalalalz.application.port.member.in.model.ChangePasswordRequest;
+import com.lalalalz.application.port.member.in.model.ChangePasswordResponse;
+import com.lalalalz.application.port.member.in.model.CreateMemberRequest;
+import com.lalalalz.application.port.member.in.model.CreateMemberResponse;
 import com.lalalalz.application.port.member.out.LoadMemberPort;
 import com.lalalalz.application.port.member.out.SaveMemberPort;
 import com.lalalalz.domain.member.Member;

@@ -1,15 +1,11 @@
 package com.lalalalz.domain.member;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-@Getter
 @AllArgsConstructor
-public enum MemberPasswordLengthPolicy {
+public abstract class MemberPasswordLengthPolicy {
 
-    min(10),
-    max(20)
-    ;
+    public static final int min = 10;
+    public static final int max = 20;
 
-    private final int length;
 }

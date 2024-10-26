@@ -1,4 +1,4 @@
-package com.lalalalz.application.port.member.in;
+package com.lalalalz.application.port.member.in.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

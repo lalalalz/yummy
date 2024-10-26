@@ -1,6 +1,11 @@
 package com.lalalalz.application.port.member;
 
-import com.lalalalz.application.port.member.in.*;
+import com.lalalalz.application.port.member.in.ChangePasswordUseCase;
+import com.lalalalz.application.port.member.in.CreateMemberUseCase;
+import com.lalalalz.application.port.member.in.model.ChangePasswordRequest;
+import com.lalalalz.application.port.member.in.model.ChangePasswordResponse;
+import com.lalalalz.application.port.member.in.model.CreateMemberRequest;
+import com.lalalalz.application.port.member.in.model.CreateMemberResponse;
 import com.lalalalz.application.port.member.out.LoadMemberPort;
 import com.lalalalz.application.port.member.out.SaveMemberPort;
 import com.lalalalz.domain.member.Member;
@@ -40,6 +45,10 @@ class MemberService implements CreateMemberUseCase, ChangePasswordUseCase {
 
         boolean changeRequestResult =
                 member.changePassword(changePasswordRequest.getNewPassword());
+
+        if (changeRequestResult) {
+            saveMemberPort.save(member);
+        }
 
         return new ChangePasswordResponse(changeRequestResult);
     }
