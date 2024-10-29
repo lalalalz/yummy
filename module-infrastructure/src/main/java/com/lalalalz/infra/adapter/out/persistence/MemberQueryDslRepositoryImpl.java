@@ -1,5 +1,6 @@
 package com.lalalalz.infra.adapter.out.persistence;
 
+import com.lalalalz.application.port.member.in.model.GetBestMemberResponse;
 import com.lalalalz.application.port.member.in.model.GetMemberResponse;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -28,9 +29,21 @@ class MemberQueryDslRepositoryImpl implements com.lalalalz.infra.adapter.out.per
     public List<GetMemberResponse> searchMemberByEmail(List<String> emails) {
         return factory.select(Projections.fields(GetMemberResponse.class,
                         member.email,
-                        member.password))
+                        member.password,
+                        member.isTaster))
                 .from(member)
                 .where(member.email.in(emails))
+                .fetch();
+    }
+
+    @Override
+    public List<GetBestMemberResponse> findBestMembers(Long count) {
+        return factory.select(Projections.fields(GetBestMemberResponse.class,
+                        member.email,
+                        member.isTaster))
+                .from(member)
+                .where(member.isTaster.isTrue())
+                .limit(count)
                 .fetch();
     }
 }

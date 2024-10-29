@@ -1,8 +1,13 @@
 package com.lalalalz.application.port.member;
 
-public class InvalidEmailException extends RuntimeException {
+import com.lalalalz.application.util.BusinessException;
+
+import static com.lalalalz.application.util.ErrorMessage.INVALID_EMAIL;
+
+public class InvalidEmailException extends BusinessException {
+
     public InvalidEmailException() {
-        super();
+        super(INVALID_EMAIL.getMessage());
     }
 
     public InvalidEmailException(String message) {

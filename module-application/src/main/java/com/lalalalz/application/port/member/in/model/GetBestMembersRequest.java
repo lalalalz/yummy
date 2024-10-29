@@ -1,4 +1,4 @@
-package com.lalalalz.web;
+package com.lalalalz.application.port.member.in.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,8 +8,7 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class JoinForm {
+public class GetBestMembersRequest {
 
-    private String email;
-    private String password;
+    private Long count;
 }

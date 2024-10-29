@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tasty Signup</title>
+    <title>Tasty Login</title>
     <style>
         /* 배경과 기본 스타일 */
         body {
@@ -16,8 +16,8 @@
             color: #ffffff;
             font-family: 'Arial', sans-serif;
         }
-        /* 가입 컨테이너 */
-        .signup-container {
+        /* 로그인 컨테이너 */
+        .login-container {
             width: 100%;
             max-width: 380px;
             padding: 3rem;
@@ -36,6 +36,7 @@
         }
         /* 입력 필드와 버튼 기본 스타일 */
         .input-field,
+        .login-button,
         .signup-button {
             width: 100%;
             padding: 0.9rem;
@@ -55,17 +56,27 @@
             border-color: #ff6b6b;
             outline: none;
         }
-        /* 가입 버튼 스타일 */
+        /* 로그인 및 가입 버튼 스타일 */
+        .login-button,
         .signup-button {
-            background-color: #ff6b6b;
             border: none;
             color: #fff;
             font-weight: bold;
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        .signup-button:hover {
+        .login-button {
+            background-color: #ff6b6b;
+        }
+        .login-button:hover {
             background-color: #ff3b3b;
+        }
+        .signup-button {
+            background-color: #333;
+            margin-top: 0.5rem;
+        }
+        .signup-button:hover {
+            background-color: #444;
         }
         /* 추가 링크 */
         .link {
@@ -96,22 +107,20 @@
     </style>
 </head>
 <body>
-<div class="signup-container">
+<div class="login-container">
     <!-- 로고 -->
     <div class="logo">Tasty</div>
     <!-- 오류 메시지 -->
-    <div th:if="${error != null}"
-         th:text="${error}"
-         class="error-message error-visible">로그인 실패했습니다.
-    </div>
-    <!-- 가입 폼 -->
-    <form th:action="@{/join}" action="/join" method="post">
-        <input type="email" name="email" class="input-field" placeholder="이메일" required>
-        <input type="password" name="password" class="input-field" placeholder="비밀번호" required>
-        <button type="submit" class="signup-button">가입하기</button>
+    <div th:if="${error}" class="error-message error-visible">로그인 실패했습니다.</div>
+    <!-- 로그인 폼 -->
+    <form action="/login" th:action="@{/login}" method="post">
+        <input type="email" name="username" id="username" class="input-field" placeholder="이메일" required>
+        <input type="password" name="password" id="password" class="input-field" placeholder="비밀번호" required>
+        <button type="submit" class="login-button">로그인</button>
+        <button type="button" class="signup-button" onclick="location.href='/join'">가입하기</button>
     </form>
     <!-- 추가 링크 -->
-    <a href="/login" class="link">이미 계정이 있으신가요? 로그인</a>
+    <a href="#" class="link">비밀번호를 잊으셨나요?</a>
 </div>
 </body>
 </html>

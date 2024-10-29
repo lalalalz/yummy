@@ -7,11 +7,13 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RequiredArgsConstructor
 public class UsernameAndPasswordUserDetailService implements UserDetailsService {
 
     private final LoadMemberPort loadMemberPort;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
@@ -20,7 +22,7 @@ public class UsernameAndPasswordUserDetailService implements UserDetailsService 
 
         return User.builder()
                 .username(member.getEmail())
-                .password(member.getPassword())
+                .password(passwordEncoder.encode(member.getPassword()))
                 .build();
     }
 }

@@ -1,10 +1,7 @@
 package com.lalalalz.application.port.member;
 
 import com.lalalalz.application.port.member.in.SearchMemberUseCase;
-import com.lalalalz.application.port.member.in.model.GetMemberRequest;
-import com.lalalalz.application.port.member.in.model.GetMemberResponse;
-import com.lalalalz.application.port.member.in.model.GetMembersRequest;
-import com.lalalalz.application.port.member.in.model.GetMembersResponse;
+import com.lalalalz.application.port.member.in.model.*;
 import com.lalalalz.application.port.member.out.LoadMemberPort;
 import com.lalalalz.domain.member.Member;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +26,10 @@ public class MemberSearch implements SearchMemberUseCase {
     @Override @NonNull
     public GetMembersResponse getMembers(@NonNull final GetMembersRequest getMembersRequest) {
         return new GetMembersResponse(loadMemberPort.searchMembersByEmail(getMembersRequest.getEmails()));
+    }
+
+    @Override @NonNull
+    public GetBestMembersResponse getBestMembers(@NonNull final GetBestMembersRequest getBestMembersRequest) {
+        return new GetBestMembersResponse(loadMemberPort.findBestMembers(getBestMembersRequest.getCount()));
     }
 }

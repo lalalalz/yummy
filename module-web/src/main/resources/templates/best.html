@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Favorite Artists</title>
+    <style>
+        /* 헤더 스타일 */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .header-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff3b3b;
+            margin-right: auto;
+        }
+
+        .header-menu a {
+            color: #ffffff;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .header-menu a:hover {
+            color: #ff3b3b;
+        }
+
+        /* 기본 스타일 */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 상단 제목 스타일 */
+        h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        /* 인물 선택 그리드 중앙 정렬 */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr); /* 10열 설정 */
+            gap: 1rem;
+            width: 100%;
+            padding: 1rem;
+            justify-items: center;
+        }
+
+        /* 인물 카드 스타일 */
+        .person-card {
+            width: 100%;
+            height: 120px;
+            position: relative;
+            text-align: center;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .person-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .person-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+        }
+
+        /* 선택 효과 */
+        .person-card.selected {
+            box-shadow: 0 0 10px 5px #ff3b3b;
+        }
+
+        /* 인물 이름 */
+        .person-name {
+            padding: 0.5rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #ffffff;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* 완료 버튼 */
+        .submit-button {
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            background-color: #ff3b3b;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #e82b2b;
+        }
+    </style>
+</head>
+<body>
+<!-- 헤더 -->
+<div class="header">
+    <div class="header-logo">TastyBites</div>
+    <div class="header-menu">
+        <a href="/home">홈</a>
+        <a href="#">음식 추천</a>
+        <a href="#">인기 메뉴</a>
+        <a href="#">내가 찜한 음식</a>
+        <a href="#">카테고리</a>
+        <a href="/logout">로그아웃</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1>선정된 맛잘러를 선택해보세요!</h1>
+
+    <!-- 인물 선택 그리드 -->
+    <div class="grid-container" id="grid-container"></div>
+
+    <!-- 완료 버튼 -->
+    <button class="submit-button" onclick="submitSelection()">완료</button>
+</div>
+
+<script>
+    // 동적으로 10x10 인물 카드 생성
+    const gridContainer = document.getElementById('grid-container');
+
+    for (let i = 1; i <= 50; i++) {
+        const card = document.createElement('div');
+        card.classList.add('person-card');
+        card.setAttribute('onclick', 'selectPerson(this)');
+
+        const img = document.createElement('img');
+        img.src = `https://via.placeholder.com/120?text=Artist+${i}`;
+        img.alt = `Artist ${i}`;
+
+        const name = document.createElement('div');
+        name.classList.add('person-name');
+        name.textContent = `Artist ${i}`;
+
+        card.appendChild(img);
+        card.appendChild(name);
+        gridContainer.appendChild(card);
+    }
+
+    // 인물 선택/해제 함수
+    function selectPerson(card) {
+        card.classList.toggle("selected");
+    }
+
+    // 선택 완료 함수
+    function submitSelection() {
+        const selected = document.querySelectorAll('.person-card.selected');
+        const selectedNames = Array.from(selected).map(card => card.querySelector('.person-name').textContent);
+        alert("선택한 가수: " + selectedNames.join(", "));
+    }
+</script>
+
+</body>
+</html>

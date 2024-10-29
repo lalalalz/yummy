@@ -29,11 +29,12 @@ class MemberServiceTest {
 
     static final String email = "test@test.com";
     static final String password = "1234";
+    static final boolean isBest = true;
 
     @Test
     void 회원_추가() {
         // given
-        Member newMember = Member.withId(1L, email, password);
+        Member newMember = Member.withId(1L, email, password, isBest);
         CreateMemberRequest createMemberRequest = new CreateMemberRequest(email, password);
 
         when(loadMemberPort.findEmail(email)).thenReturn(Optional.empty());

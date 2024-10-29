@@ -1,5 +1,6 @@
 package com.lalalalz.infra.adapter.out;
 
+import com.lalalalz.application.port.member.in.model.GetBestMemberResponse;
 import com.lalalalz.application.port.member.in.model.GetMemberResponse;
 import com.lalalalz.application.port.member.out.LoadMemberPort;
 import com.lalalalz.domain.member.Member;
@@ -29,5 +30,10 @@ public class LoadMemberAdapter implements LoadMemberPort {
     @Override
     public List<GetMemberResponse> searchMembersByEmail(List<String> emails) {
         return memberRepository.searchMemberByEmail(emails);
+    }
+
+    @Override
+    public List<GetBestMemberResponse> findBestMembers(Long count) {
+        return memberRepository.findBestMembers(count);
     }
 }

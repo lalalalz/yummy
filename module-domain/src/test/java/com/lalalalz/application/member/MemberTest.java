@@ -1,11 +1,9 @@
 package com.lalalalz.application.member;
 
-import com.lalalalz.domain.member.ChangePasswordToSamePasswordException;
 import com.lalalalz.domain.member.Member;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class MemberTest {
 
@@ -47,7 +45,34 @@ class MemberTest {
         Member member = Member.withoutId(email, password);
 
         // when, then
-        assertThatThrownBy(() -> member.changePassword(password))
-                .isInstanceOf(ChangePasswordToSamePasswordException.class);
+        assertThat(member.changePassword(password)).isFalse();
+    }
+
+    @Test
+    void 맛잘러로_승급하다() {
+        // given
+        String email = "test@test.com";
+        String password = "1234";
+        Member member = Member.withId(1L, email, password, false);
+
+        // when
+        member.promote();
+
+        // then
+        assertThat(member.isTaster()).isTrue();
+    }
+
+    @Test
+    void 맛잘러에서_강등되다() {
+        // given
+        String email = "test@test.com";
+        String password = "1234";
+        Member member = Member.withId(1L, email, password, true);
+
+        // when
+        member.demote();
+
+        // then
+        assertThat(member.isTaster()).isFalse();
     }
 }

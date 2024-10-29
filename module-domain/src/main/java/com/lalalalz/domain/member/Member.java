@@ -30,17 +30,21 @@ public class Member {
     @Column(length = max)
     private String password;
 
+    @Column
+    private boolean isTaster;
+
     public static Member withoutId(@NonNull final String email,
                                    @NonNull final String password
     ) {
-        return new Member(null, email, password);
+        return new Member(null, email, password, false);
     }
 
     public static Member withId(@NonNull final Long id,
                                 @NonNull final String email,
-                                @NonNull final String password
+                                @NonNull final String password,
+                                @NonNull final boolean isBest
     ) {
-        return new Member(id, email, password);
+        return new Member(id, email, password, isBest);
     }
 
     public boolean changePassword(@NonNull final String newPassword) {
@@ -50,6 +54,14 @@ public class Member {
         }
         
         return false;
+    }
+
+    public void promote() {
+        isTaster = true;
+    }
+
+    public void demote() {
+        isTaster = false;
     }
 
     private static boolean isAppropriateLength(String newPassword) {

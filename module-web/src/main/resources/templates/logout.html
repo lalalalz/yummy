@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasty Logout</title>
+    <style>
+        /* 배경과 기본 스타일 */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #1a1a1a, #333333);
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+        }
+        /* 로그아웃 컨테이너 */
+        .logout-container {
+            width: 100%;
+            max-width: 380px;
+            padding: 3rem;
+            background-color: rgba(0, 0, 0, 0.85);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+        /* 로고 스타일 */
+        .logo {
+            font-size: 2.4rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+        /* 버튼 기본 스타일 */
+        .button {
+            width: 100%;
+            padding: 0.9rem;
+            margin: 0.5rem 0;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        /* 로그아웃 버튼 스타일 */
+        .logout-button {
+            background-color: #ff6b6b;
+            border: none;
+            color: #fff;
+        }
+        .logout-button:hover {
+            background-color: #ff3b3b;
+        }
+        /* 홈으로 돌아가기 버튼 스타일 */
+        .home-button {
+            background-color: #333;
+            border: none;
+            color: #fff;
+            margin-top: 0.5rem;
+        }
+        .home-button:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+<div class="logout-container">
+    <!-- 로고 -->
+    <div class="logo">Tasty</div>
+    <!-- 로그아웃 메시지 -->
+    <p>로그아웃 하시겠습니까?</p>
+    <!-- 로그아웃 폼 -->
+    <form action="/logout" th:action="@{/logout}" method="post">
+        <button type="submit" class="button logout-button">로그아웃</button>
+        <button type="button" class="button home-button" onclick="location.href='/hello'">홈으로 돌아가기</button>
+    </form>
+</div>
+</body>
+</html>

@@ -13,9 +13,10 @@ public class GetMemberResponse {
 
     private String email;
     private String password;
+    private boolean isTaster;
 
     @NonNull
     public static GetMemberResponse from(@NonNull final Member member) {
-        return new GetMemberResponse(member.getEmail(), member.getPassword());
+        return new GetMemberResponse(member.getEmail(), member.getPassword(), member.isTaster());
     }
 }
