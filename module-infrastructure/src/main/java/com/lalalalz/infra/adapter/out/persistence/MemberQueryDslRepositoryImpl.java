@@ -29,6 +29,7 @@ class MemberQueryDslRepositoryImpl implements com.lalalalz.infra.adapter.out.per
     public List<GetMemberResponse> searchMemberByEmail(List<String> emails) {
         return factory.select(Projections.fields(GetMemberResponse.class,
                         member.email,
+                        member.username,
                         member.password,
                         member.isTaster))
                 .from(member)
@@ -40,6 +41,7 @@ class MemberQueryDslRepositoryImpl implements com.lalalalz.infra.adapter.out.per
     public List<GetBestMemberResponse> findBestMembers(Long count) {
         return factory.select(Projections.fields(GetBestMemberResponse.class,
                         member.email,
+                        member.username,
                         member.isTaster))
                 .from(member)
                 .where(member.isTaster.isTrue())

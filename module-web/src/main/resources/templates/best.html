@@ -156,27 +156,47 @@
     <!-- 완료 버튼 -->
     <button class="submit-button" onclick="submitSelection()">완료</button>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    // 동적으로 10x10 인물 카드 생성
-    const gridContainer = document.getElementById('grid-container');
 
-    for (let i = 1; i <= 50; i++) {
-        const card = document.createElement('div');
-        card.classList.add('person-card');
-        card.setAttribute('onclick', 'selectPerson(this)');
+    let tasters = [];
 
-        const img = document.createElement('img');
-        img.src = `https://via.placeholder.com/120?text=Artist+${i}`;
-        img.alt = `Artist ${i}`;
+    $.ajax({
+        url: "/home/taster",
+        type: "GET",
+        data: {count: 10},
+        dataType: "json",
+        success: function (response) {
+            console.log(response.body.bestMembers);
+            generateGrid(response.body.bestMembers)
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        },
+    })
 
-        const name = document.createElement('div');
-        name.classList.add('person-name');
-        name.textContent = `Artist ${i}`;
+    function generateGrid(tasterList) {
+        // 동적으로 10x10 인물 카드 생성
+        const gridContainer = document.getElementById('grid-container');
+        console.log("generateGrid");
 
-        card.appendChild(img);
-        card.appendChild(name);
-        gridContainer.appendChild(card);
+        for (let i = 0; i < tasterList.length; i++) {
+            const card = document.createElement('div');
+            card.classList.add('person-card');
+            card.setAttribute('onclick', 'selectPerson(this)');
+
+            const img = document.createElement('img');
+            img.src = `https://via.placeholder.com/120?text=Artist+${i}`;
+            img.alt = `Artist ${i}`;
+
+            const name = document.createElement('div');
+            name.classList.add('person-name');
+            name.textContent = tasterList[i].username;
+
+            card.appendChild(img);
+            card.appendChild(name);
+            gridContainer.appendChild(card);
+        }
     }
 
     // 인물 선택/해제 함수

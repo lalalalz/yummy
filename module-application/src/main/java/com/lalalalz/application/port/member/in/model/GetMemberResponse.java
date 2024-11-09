@@ -12,11 +12,12 @@ import org.springframework.lang.NonNull;
 public class GetMemberResponse {
 
     private String email;
+    private String username;
     private String password;
     private boolean isTaster;
 
     @NonNull
     public static GetMemberResponse from(@NonNull final Member member) {
-        return new GetMemberResponse(member.getEmail(), member.getPassword(), member.isTaster());
+        return new GetMemberResponse(member.getEmail(), member.getUsername(), member.getPassword(), member.isTaster());
     }
 }

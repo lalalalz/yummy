@@ -29,7 +29,7 @@ public class MemberSearch implements SearchMemberUseCase {
     }
 
     @Override @NonNull
-    public GetBestMembersResponse getBestMembers(@NonNull final GetBestMembersRequest getBestMembersRequest) {
-        return new GetBestMembersResponse(loadMemberPort.findBestMembers(getBestMembersRequest.getCount()));
+    public GetTasterMembersResponse getTasterMembers(@NonNull final GetTasterMembersRequest getTasterMembersRequest) {
+        return new GetTasterMembersResponse(loadMemberPort.findTasterMembers(getTasterMembersRequest.getCount()));
     }
 }

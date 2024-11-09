@@ -33,7 +33,7 @@ public class LoadMemberAdapter implements LoadMemberPort {
     }
 
     @Override
-    public List<GetBestMemberResponse> findBestMembers(Long count) {
+    public List<GetBestMemberResponse> findTasterMembers(Long count) {
         return memberRepository.findBestMembers(count);
     }
 }

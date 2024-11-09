@@ -3,12 +3,12 @@ package com.lalalalz.application.port.member.in.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter @Setter
+import java.util.List;
+
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetBestMembersRequest {
-
-    private Long count;
+public class GetTasterMembersResponse {
+    List<GetBestMemberResponse> bestMembers;
 }

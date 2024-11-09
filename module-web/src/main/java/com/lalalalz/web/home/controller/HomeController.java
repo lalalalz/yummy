@@ -1,8 +1,8 @@
 package com.lalalalz.web.home.controller;
 
 import com.lalalalz.application.port.member.in.SearchMemberUseCase;
-import com.lalalalz.application.port.member.in.model.GetBestMembersRequest;
-import com.lalalalz.application.port.member.in.model.GetBestMembersResponse;
+import com.lalalalz.application.port.member.in.model.GetTasterMembersRequest;
+import com.lalalalz.application.port.member.in.model.GetTasterMembersResponse;
 import com.lalalalz.web.common.ResponseBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class HomeController {
     private final SearchMemberUseCase searchMemberUseCase;
 
     @GetMapping("/home/taster")
-    public ResponseBody<GetBestMembersResponse> getTaster(@ModelAttribute GetBestMembersRequest getBestMembersRequest) {
-        return ResponseBody.ok(searchMemberUseCase.getBestMembers(getBestMembersRequest));
+    public ResponseBody<GetTasterMembersResponse> getTaster(@ModelAttribute GetTasterMembersRequest getTasterMembersRequest) {
+        return ResponseBody.ok(searchMemberUseCase.getTasterMembers(getTasterMembersRequest));
     }
 }

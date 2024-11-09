@@ -2,10 +2,8 @@ package com.lalalalz.application.port.member;
 
 import com.lalalalz.application.port.member.in.ChangePasswordUseCase;
 import com.lalalalz.application.port.member.in.CreateMemberUseCase;
-import com.lalalalz.application.port.member.in.model.ChangePasswordRequest;
-import com.lalalalz.application.port.member.in.model.ChangePasswordResponse;
-import com.lalalalz.application.port.member.in.model.CreateMemberRequest;
-import com.lalalalz.application.port.member.in.model.CreateMemberResponse;
+import com.lalalalz.application.port.member.in.UploadProfileUseCase;
+import com.lalalalz.application.port.member.in.model.*;
 import com.lalalalz.application.port.member.out.LoadMemberPort;
 import com.lalalalz.application.port.member.out.SaveMemberPort;
 import com.lalalalz.domain.member.Member;
@@ -15,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-class MemberService implements CreateMemberUseCase, ChangePasswordUseCase {
+class MemberService implements CreateMemberUseCase, ChangePasswordUseCase, UploadProfileUseCase {
 
     private final SaveMemberPort saveMemberPort;
     private final LoadMemberPort loadMemberPort;
@@ -24,9 +22,7 @@ class MemberService implements CreateMemberUseCase, ChangePasswordUseCase {
     public CreateMemberResponse createMember(@NonNull final CreateMemberRequest createMemberRequest) {
         verifyDuplicatedEmail(createMemberRequest.getEmail());
 
-        Member save = saveMemberPort.save(Member.withoutId(
-                        createMemberRequest.getEmail(),
-                        createMemberRequest.getPassword()));
+        Member save = saveMemberPort.save(createMemberRequest.of());
 
         return CreateMemberResponse.from(save);
     }
@@ -37,19 +33,27 @@ class MemberService implements CreateMemberUseCase, ChangePasswordUseCase {
         }
     }
 
-    @Override @NonNull
+        @Override @NonNull
     public ChangePasswordResponse changePassword(@NonNull final ChangePasswordRequest changePasswordRequest) {
         Member member = loadMemberPort
                 .findByEmail(changePasswordRequest.getEmail())
                 .orElseThrow(InvalidEmailException::new);
 
-        boolean changeRequestResult =
-                member.changePassword(changePasswordRequest.getNewPassword());
+        ChangePasswordResponse changePasswordResponse;
 
-        if (changeRequestResult) {
-            saveMemberPort.save(member);
+        try {
+            member.changePassword(changePasswordRequest.getNewPassword());
+            changePasswordResponse = new ChangePasswordResponse(true);
+        }
+        catch (RuntimeException exception) {
+            changePasswordResponse = new ChangePasswordResponse(false, exception.getMessage());
         }
 
-        return new ChangePasswordResponse(changeRequestResult);
+        return changePasswordResponse;
+    }
+
+    @Override
+    public UploadProfileResponse uploadProfile(@NonNull final UploadProfileRequest uploadProfileRequest) {
+        return null;
     }
 }

@@ -12,5 +12,5 @@ public interface LoadMemberPort {
     Optional<String> findEmail(String email);
     Optional<Member> findByEmail(String email);
     List<GetMemberResponse> searchMembersByEmail(List<String> emails);
-    List<GetBestMemberResponse> findBestMembers(Long count);
+    List<GetBestMemberResponse> findTasterMembers(Long count);
 }

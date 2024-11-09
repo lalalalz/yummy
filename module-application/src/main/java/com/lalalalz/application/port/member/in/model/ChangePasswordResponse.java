@@ -10,4 +10,9 @@ import lombok.NoArgsConstructor;
 public class ChangePasswordResponse {
 
     private boolean isChanged;
+    private String message;
+
+    public ChangePasswordResponse(boolean isChanged) {
+        this.isChanged = isChanged;
+    }
 }

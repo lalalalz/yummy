@@ -107,6 +107,7 @@
     <!-- 가입 폼 -->
     <form th:action="@{/join}" action="/join" method="post">
         <input type="email" name="email" class="input-field" placeholder="이메일" required>
+        <input type="text" name="username" class="input-field" placeholder="유저명" required>
         <input type="password" name="password" class="input-field" placeholder="비밀번호" required>
         <button type="submit" class="signup-button">가입하기</button>
     </form>
