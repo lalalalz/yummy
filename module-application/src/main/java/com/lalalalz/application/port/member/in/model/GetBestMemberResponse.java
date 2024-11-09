@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class GetBestMemberResponse {
 
     private String email;
+    private String username;
     private boolean isTaster;
 }

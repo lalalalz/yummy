@@ -8,6 +8,6 @@ public interface SearchMemberUseCase {
 
     GetMembersResponse getMembers(GetMembersRequest getMembersRequest);
 
-    GetBestMembersResponse getBestMembers(GetBestMembersRequest getBestMembersRequest);
+    GetTasterMembersResponse getTasterMembers(GetTasterMembersRequest getTasterMembersRequest);
 
 }

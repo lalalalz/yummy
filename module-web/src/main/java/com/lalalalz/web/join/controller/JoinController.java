@@ -25,7 +25,11 @@ public class JoinController {
     public String join(@ModelAttribute JoinRequest joinRequest) {
         CreateMemberRequest createMemberRequest = new CreateMemberRequest(
                 joinRequest.getEmail(),
-                joinRequest.getPassword());
+                joinRequest.getUsername(),
+                joinRequest.getPassword(),
+                joinRequest.getPhone(),
+                joinRequest.getCity(),
+                joinRequest.getRoadAddress());
 
         CreateMemberResponse createMemberResponse = createMemberUseCase.createMember(createMemberRequest);
 
