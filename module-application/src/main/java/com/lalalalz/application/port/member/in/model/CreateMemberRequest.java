@@ -10,8 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
-import static com.lalalalz.domain.member.MemberPasswordLengthPolicy.max;
-import static com.lalalalz.domain.member.MemberPasswordLengthPolicy.min;
+import static com.lalalalz.domain.member.policy.MemberPasswordLengthPolicy.max;
+import static com.lalalalz.domain.member.policy.MemberPasswordLengthPolicy.min;
 
 @Getter
 @NoArgsConstructor

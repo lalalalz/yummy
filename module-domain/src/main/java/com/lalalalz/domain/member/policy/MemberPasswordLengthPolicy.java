@@ -1,4 +1,4 @@
-package com.lalalalz.domain.member;
+package com.lalalalz.domain.member.policy;
 
 import lombok.AllArgsConstructor;
 

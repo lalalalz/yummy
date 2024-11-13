@@ -1,6 +1,6 @@
 package com.lalalalz.domain.member;
 
-public class PasswordLengthException extends RuntimeException {
+public class PasswordLengthException extends DomainException {
     public PasswordLengthException() {
         super("비밀번호 길이가 올바르지 않습니다.");
     }

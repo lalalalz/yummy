@@ -1,6 +1,6 @@
 package com.lalalalz.domain.member;
 
-public class InvalidProfileImageUrlException extends RuntimeException {
+public class InvalidProfileImageUrlException extends DomainException {
     public InvalidProfileImageUrlException() {
     }
 

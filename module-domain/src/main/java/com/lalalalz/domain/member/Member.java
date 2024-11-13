@@ -9,8 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 
-import static com.lalalalz.domain.member.MemberPasswordLengthPolicy.max;
-import static com.lalalalz.domain.member.MemberPasswordLengthPolicy.min;
+import static com.lalalalz.domain.member.policy.MemberPasswordLengthPolicy.max;
+import static com.lalalalz.domain.member.policy.MemberPasswordLengthPolicy.min;
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 

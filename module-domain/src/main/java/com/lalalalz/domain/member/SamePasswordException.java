@@ -1,6 +1,6 @@
 package com.lalalalz.domain.member;
 
-public class SamePasswordException extends RuntimeException {
+public class SamePasswordException extends DomainException {
 
     public SamePasswordException() {
         super("동일한 비밀번호로 변경하였습니다.");

@@ -3,9 +3,13 @@ package com.lalalalz.application.port.member;
 import com.lalalalz.application.port.member.in.ChangePasswordUseCase;
 import com.lalalalz.application.port.member.in.CreateMemberUseCase;
 import com.lalalalz.application.port.member.in.UploadProfileUseCase;
-import com.lalalalz.application.port.member.in.model.*;
+import com.lalalalz.application.port.member.in.model.ChangePasswordRequest;
+import com.lalalalz.application.port.member.in.model.CreateMemberRequest;
+import com.lalalalz.application.port.member.in.model.CreateMemberResponse;
+import com.lalalalz.application.port.member.in.model.UploadProfileRequest;
 import com.lalalalz.application.port.member.out.LoadMemberPort;
 import com.lalalalz.application.port.member.out.SaveMemberPort;
+import com.lalalalz.domain.member.DomainException;
 import com.lalalalz.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
@@ -22,9 +26,9 @@ class MemberService implements CreateMemberUseCase, ChangePasswordUseCase, Uploa
     public CreateMemberResponse createMember(@NonNull final CreateMemberRequest createMemberRequest) {
         verifyDuplicatedEmail(createMemberRequest.getEmail());
 
-        Member save = saveMemberPort.save(createMemberRequest.of());
+        Member member = saveMemberPort.save(createMemberRequest.of());
 
-        return CreateMemberResponse.from(save);
+        return CreateMemberResponse.from(member);
     }
 
     private void verifyDuplicatedEmail(@NonNull final String email) {
@@ -33,27 +37,26 @@ class MemberService implements CreateMemberUseCase, ChangePasswordUseCase, Uploa
         }
     }
 
-        @Override @NonNull
-    public ChangePasswordResponse changePassword(@NonNull final ChangePasswordRequest changePasswordRequest) {
+    @Override @NonNull
+    public void changePassword(@NonNull final ChangePasswordRequest changePasswordRequest) {
         Member member = loadMemberPort
                 .findByEmail(changePasswordRequest.getEmail())
                 .orElseThrow(InvalidEmailException::new);
 
-        ChangePasswordResponse changePasswordResponse;
-
-        try {
-            member.changePassword(changePasswordRequest.getNewPassword());
-            changePasswordResponse = new ChangePasswordResponse(true);
-        }
-        catch (RuntimeException exception) {
-            changePasswordResponse = new ChangePasswordResponse(false, exception.getMessage());
-        }
-
-        return changePasswordResponse;
+        member.changePassword(changePasswordRequest.getNewPassword());
     }
 
-    @Override
-    public UploadProfileResponse uploadProfile(@NonNull final UploadProfileRequest uploadProfileRequest) {
-        return null;
+    @Override @NonNull
+    public void uploadProfile(@NonNull final UploadProfileRequest uploadProfileRequest) {
+        Member member = loadMemberPort
+                .findByEmail(uploadProfileRequest.getEmail())
+                .orElseThrow(InvalidEmailException::new);
+
+        try {
+            member.uploadProfile(uploadProfileRequest.of());
+        }
+        catch (DomainException domainException) {
+            throw new UploadProfileException(domainException.getMessage());
+        }
     }
 }

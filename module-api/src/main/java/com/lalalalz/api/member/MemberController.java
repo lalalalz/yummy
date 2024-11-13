@@ -39,9 +39,10 @@ public class MemberController {
     }
 
     @PostMapping("/member/change-password")
-    public ResponseEntity<ChangePasswordResponse> changePassword(
+    public ResponseEntity<Boolean> changePassword(
             @RequestBody @Valid final ChangePasswordRequest changePasswordRequest
     ) {
-        return ResponseEntity.ok(changePasswordUseCase.changePassword(changePasswordRequest));
+        changePasswordUseCase.changePassword(changePasswordRequest);
+        return ResponseEntity.ok(true);
     }
 }
